@@ -2,6 +2,7 @@ import { Chess } from "chess.js";
 import Chessboard from "chessboardjsx";
 import { useState } from "react";
 import "./App.css";
+import { GameStatus } from "./components/GameStatus";
 
 function App() {
   const [game, setGame] = useState(new Chess());
@@ -15,7 +16,7 @@ function App() {
       });
       setGame(new Chess(game.fen()));
     } catch (error) {
-      alert("Invalid move!");
+      console.log("Invalid move");
     }
   };
 
@@ -25,15 +26,18 @@ function App() {
 
   return (
     <div className="App">
-      <Chessboard
-        position={game.fen()}
-        onDrop={handleMove}
-        calcWidth={calcBoardWidth}
-        boardStyle={{
-          borderRadius: "5px",
-          boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
-        }}
-      />
+      <div className="overlay-container">
+        <Chessboard
+          position={game.fen()}
+          onDrop={handleMove}
+          calcWidth={calcBoardWidth}
+          boardStyle={{
+            borderRadius: "5px",
+            boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
+          }}
+        />
+        <GameStatus game={game} />
+      </div>
     </div>
   );
 }

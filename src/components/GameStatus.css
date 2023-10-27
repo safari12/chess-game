@@ -21,19 +21,19 @@
         font-size: 0px;
     }
     50% {
-        font-size: 5em;
+        font-size: 4em;
     }
     100% {
-        font-size: 4em;
+        font-size: 3em;
     }
 }
 
 @keyframes shrink {
     0% {
-        font-size: 4em;
+        font-size: 3em;
     }
     50% {
-        font-size: 5em;
+        font-size: 4em;
     }
     100% {
         font-size: 0px;
@@ -51,11 +51,28 @@
     font-size: 4em;
     font-weight: bold;
     color: white;
+    
 }
 
 .game-status-check {
     animation: expand 1s forwards, shrink 1s 1s forwards;
 }
+
+.game-status-checkmate {
+    animation: expand 1s forwards;
+}
+
+.game-status-message {
+    text-align: center;
+    font-size: 3em;
+    color: white;
+    z-index: 10;
+    position: absolute;
+}
+
+/* .game-status-check {
+    
+} */
 
 .dark-overlay {
     position: absolute;

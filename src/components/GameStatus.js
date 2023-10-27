@@ -1,25 +1,34 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./GameStatus.css";
 
-export const GameStatus = ({ game }) => {
+export const GameStatus = ({ game, onReset }) => {
   const statusRef = useRef(null);
-  const [showStatus, setShowStatus] = useState(false);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    setShowStatus(game.inCheck());
+    if (game.isCheckmate()) {
+      setStatus("checkmate");
+    } else if (game.inCheck()) {
+      setStatus("check");
+    } else if (game.isDraw()) {
+      setStatus("draw");
+    } else if (game.isStalemate()) {
+      setStatus("stalemate");
+    } else {
+      setStatus(null);
+    }
   }, [game]);
 
   useEffect(() => {
-    console.log(showStatus);
     const handleAnimEnd = (event) => {
       if (event.animationName === "shrink") {
-        setShowStatus(false);
+        setStatus(null);
       }
     };
 
     const statusNode = statusRef.current;
     if (statusNode) {
-      if (showStatus) {
+      if (status === "check") {
         statusNode.addEventListener("animationend", handleAnimEnd);
       } else {
         statusNode.removeEventListener("animationend", handleAnimEnd);
@@ -31,15 +40,36 @@ export const GameStatus = ({ game }) => {
         statusNode.removeEventListener("animationend", handleAnimEnd);
       }
     };
-  }, [showStatus]);
+  }, [status]);
+
+  const getStatusMessage = () => {
+    switch (status) {
+      case "check":
+        return "CHECK!";
+      case "checkmate":
+        const winner = game.turn() === "w" ? "Black" : "White";
+        return `CHECKMATE!\n${winner} WINS!`;
+      case "draw":
+        return "DRAW!";
+      case "stalemate":
+        return "STALEMATE";
+      default:
+        return "";
+    }
+  };
 
   return (
     <>
-      {showStatus && (
+      {status && (
         <>
           <div className="dark-overlay"></div>
-          <div ref={statusRef} className="game-status game-status-check">
-            CHECK!
+          <div ref={statusRef} className={`game-status game-status-${status}`}>
+            {getStatusMessage()}
+            {game.isGameOver() && (
+              <button onClick={onReset} className="game-status-reset-btn">
+                Reset Game
+              </button>
+            )}
           </div>
         </>
       )}

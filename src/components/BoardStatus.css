@@ -1,0 +1,54 @@
+@keyframes expand {
+  0% {
+      font-size: 0px;
+  }
+  50% {
+      font-size: 4em;
+  }
+  100% {
+      font-size: 3em;
+  }
+}
+
+@keyframes shrink {
+  0% {
+      font-size: 3em;
+  }
+  50% {
+      font-size: 4em;
+  }
+  100% {
+      font-size: 0px;
+  }
+}
+
+.board-status {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 20px;
+  text-align: center;
+  font-size: 4em;
+  font-weight: bold;
+  color: white;
+}
+
+.board-status-check {
+  animation: expand 1s forwards, shrink 1s 1s forwards;
+}
+
+.board-status-checkmate {
+  animation: expand 1s forwards;
+}
+
+.board-status-dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./GameStatus.css";
+import "./BoardStatus.css";
 
 export const BoardStatus = ({ game, onReset }) => {
   const statusRef = useRef(null);

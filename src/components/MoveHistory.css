@@ -1,0 +1,34 @@
+.move-history {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 10px;
+  border-radius: 8px;
+  overflow-y: auto;
+  width: 15vw;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.move-history-turns {
+  display: flex;
+  flex-direction: row;
+}
+
+.move-history-turns .column {
+  flex-grow: 1;
+}
+
+.move-history h3 {
+  margin-top: 15;
+  font-size: 1.2em;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+
+.move-history ol {
+  padding-left: 20px;
+  color: white;
+}

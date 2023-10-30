@@ -1,0 +1,17 @@
+.chess-game {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-content: center;
+  gap: 35px;
+}
+
+.chess-game-board {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.chess-game-board-overlay {
+  position: relative;
+}

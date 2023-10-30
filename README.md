@@ -4,8 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Components
 
-- ChessGame - Manages the state of the game
-- Board - Represents the chessboard and uses `Chessboard.jsx` to render the board and pieces
+- ChessGame - Manages the state of the game and uses `chess.js` library to calculate the moves and board
+- Board - Represents the chessboard and uses `Chessboard.jsx` library to render the board and pieces
 - BoardStatus - Shows the status of the chessboard when check, draw, stalemate, or checkmate
 - MoveHistory - Shows the history of moves that the players made
 - PlayerTurn - Shows whose turn it is to move

@@ -6,20 +6,20 @@ export const BoardStatus = ({ game, onReset }) => {
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    if (game.isCheckmate()) {
-      setStatus("checkmate");
-    } else if (game.inCheck()) {
-      setStatus("check");
-    } else if (game.isDraw()) {
-      setStatus("draw");
-    } else if (game.isStalemate()) {
-      setStatus("stalemate");
-    } else {
-      setStatus(null);
-    }
-  }, [game]);
+    let currentStatus = null;
 
-  useEffect(() => {
+    if (game.isCheckmate()) {
+      currentStatus = "checkmate";
+    } else if (game.inCheck()) {
+      currentStatus = "check";
+    } else if (game.isDraw()) {
+      currentStatus = "draw";
+    } else if (game.isStalemate()) {
+      currentStatus = "stalemate";
+    }
+
+    setStatus(currentStatus);
+
     const handleAnimEnd = (event) => {
       if (event.animationName === "shrink") {
         setStatus(null);
@@ -27,20 +27,14 @@ export const BoardStatus = ({ game, onReset }) => {
     };
 
     const statusNode = statusRef.current;
-    if (statusNode) {
-      if (status === "check") {
-        statusNode.addEventListener("animationend", handleAnimEnd);
-      } else {
-        statusNode.removeEventListener("animationend", handleAnimEnd);
-      }
-    }
+    if (statusNode && currentStatus === "check") {
+      statusNode.addEventListener("animationend", handleAnimEnd);
 
-    return () => {
-      if (statusNode) {
+      return () => {
         statusNode.removeEventListener("animationend", handleAnimEnd);
-      }
-    };
-  }, [status]);
+      };
+    }
+  }, [game]);
 
   const getStatusMessage = () => {
     switch (status) {
@@ -58,24 +52,17 @@ export const BoardStatus = ({ game, onReset }) => {
     }
   };
 
-  return (
+  return status ? (
     <>
-      {status && (
-        <>
-          <div className="board-status-dark-overlay"></div>
-          <div
-            ref={statusRef}
-            className={`board-status board-status-${status}`}
-          >
-            {getStatusMessage()}
-            {game.isGameOver() && (
-              <button onClick={onReset} className="board-status-reset-btn">
-                Reset Game
-              </button>
-            )}
-          </div>
-        </>
-      )}
+      <div className="board-status-dark-overlay"></div>
+      <div ref={statusRef} className={`board-status board-status-${status}`}>
+        {getStatusMessage()}
+        {game.isGameOver() && (
+          <button onClick={onReset} className="board-status-reset-btn">
+            Reset Game
+          </button>
+        )}
+      </div>
     </>
-  );
+  ) : null;
 };

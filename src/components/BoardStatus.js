@@ -6,35 +6,35 @@ export const BoardStatus = ({ game, onReset }) => {
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    let currentStatus = null;
-
     if (game.isCheckmate()) {
-      currentStatus = "checkmate";
+      setStatus("checkmate");
     } else if (game.inCheck()) {
-      currentStatus = "check";
+      setStatus("check");
     } else if (game.isDraw()) {
-      currentStatus = "draw";
+      setStatus("draw");
     } else if (game.isStalemate()) {
-      currentStatus = "stalemate";
+      setStatus("stalemate");
+    } else {
+      setStatus(null);
     }
+  }, [game]);
 
-    setStatus(currentStatus);
-
+  useEffect(() => {
     const handleAnimEnd = (event) => {
-      if (event.animationName === "shrink") {
+      if (status === "check" && event.animationName === "shrink") {
         setStatus(null);
       }
     };
 
     const statusNode = statusRef.current;
-    if (statusNode && currentStatus === "check") {
+    if (statusNode && status === "check") {
       statusNode.addEventListener("animationend", handleAnimEnd);
 
       return () => {
         statusNode.removeEventListener("animationend", handleAnimEnd);
       };
     }
-  }, [game]);
+  }, [status]);
 
   const getStatusMessage = () => {
     switch (status) {

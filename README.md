@@ -10,6 +10,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - MoveHistory - Shows the history of moves that the players made
 - PlayerTurn - Shows whose turn it is to move
 
+## Get Started
+
+```bash
+npm install
+npm start
+```
+
 ## Available Scripts
 
 In the project directory, you can run:

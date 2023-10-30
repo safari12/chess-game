@@ -56,8 +56,6 @@ export const ChessGame = () => {
 
   const checkedKing = getCheckKing();
 
-  console.log(history);
-
   return (
     <div className="chess-game">
       <div className="chess-game-board">
